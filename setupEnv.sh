@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# 4/4/14
+
+# Created 4/4/14
 # Ethan Petuchowski
 
 case "$1" in
@@ -7,11 +8,24 @@ case "$1" in
             source venv/bin/activate
             ;;
 
+        pathit )
+            export PATH="${PATH}:~/Dropbox/CSyStuff/Conversation"
+            ;;
+
         credentials )
             echo "Username: ethan, Password: 4321"
+            ;;
 
         stop )
-            stop
+            deactivate
+            ;;
+
+        syncdb )
+            python manage.py syncdb
+            ;;
+
+        serve )
+            python manage.py runserver
             ;;
 
         count )
@@ -20,7 +34,6 @@ case "$1" in
 
         # even works for no args passed
         * )
-            echo $"Usage: $0 {start|stop|credentials}"
+            less /Users/Ethan/Dropbox/CSyStuff/Conversation/setupEnv.sh
             exit 1
-
 esac

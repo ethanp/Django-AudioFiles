@@ -1,12 +1,11 @@
 # Django settings for Conversation project.
 
-# PROJECT_ROOT
-#   Absolute path to the directory of this file (settings.py).
-#   Will be helpful when absolute filesystem paths are required.
-#   http://www.ramavadakattu.com/top-10-tips-to-a-new-django-developer
-#
+# help from
+# github.com/axelpale/minimal-django-file-upload-example
+
 import os
 PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))
+print PROJECT_ROOT
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -21,12 +20,7 @@ CURRENT_DIR = '/Users/Ethan/Dropbox/CSyStuff/Conversation/Conversation/Conversat
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        os.path.join(PROJECT_ROOT, 'database/database.sqlite3'), # Or path to database file if using sqlite3.
-        # The following settings are not used with sqlite3:
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '',                      # Set to empty string for default.
+        'NAME' : os.path.join(PROJECT_ROOT, 'database.sqlite3')
     }
 }
 
@@ -38,7 +32,7 @@ ALLOWED_HOSTS = []
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
 # In a Windows environment this must be set to your system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'America/Los_Angeles'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -58,8 +52,8 @@ USE_L10N = True
 USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
-# Example: "/var/www/example.com/media/"
-MEDIA_ROOT = ''
+# Example: "/home/media/media.lawrence.com/media/"
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -129,10 +123,10 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
+    # Enable the admin:
+    'django.contrib.admin',
+    # Enable admin documentation:
+    'django.contrib.admindocs',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
