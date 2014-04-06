@@ -2,4 +2,4 @@
 from django import forms
 
 class RecordingForm(forms.Form):
-    docfile = forms.FileField( label='Select a file' )
+    audiofile = forms.FileField( label='Select a file' )

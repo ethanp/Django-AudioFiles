@@ -2,32 +2,32 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Minimal Django File Upload Example</title>
+        <title>Based on Minimal Django File Upload Example</title>
     </head>
     <body>
-        <!-- List of uploaded documents -->
-        {% if documents %}
+        <!-- List of uploaded recordings -->
+        {% if recordings %}
             <ul>
-            {% for document in documents %}
+            {% for recording in recordings %}
                 <li>
-                    <a href="{{ document.docfile.url }}">
-                        {{ document.docfile.name }}
+                    <a href="{{ recording.audiofile.url }}">
+                        {{ recording.audiofile.name }}
                     </a>
                 </li>
             {% endfor %}
             </ul>
         {% else %}
-            <p>No documents.</p>
+            <p>No recordings.</p>
         {% endif %}
 
         <!-- Upload form. Note enctype attribute! -->
         <form action="{% url "list" %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <p>{{ form.non_field_errors }}</p>
-            <p>{{ form.docfile.label_tag }} {{ form.docfile.help_text }}</p>
+            <p>{{ form.audiofile.label_tag }} {{ form.audiofile.help_text }}</p>
             <p>
-                {{ form.docfile.errors }}
-                {{ form.docfile }}
+                {{ form.audiofile.errors }}
+                {{ form.audiofile }}
             </p>
             <p><input type="submit" value="Upload" /></p>
         </form>

@@ -12,7 +12,7 @@ def list(request):
     if request.method == 'POST':
         form = RecordingForm(request.POST, request.FILES)
         if form.is_valid():
-            newdoc = Recording(docfile = request.FILES['docfile'])
+            newdoc = Recording(audiofile = request.FILES['audiofile'])
             newdoc.save()
 
             # Redirect to the document list after POST
@@ -20,10 +20,10 @@ def list(request):
     else:
         form = RecordingForm() # A empty, unbound form
 
-    # Load recordings for the list page
+    # Load documents for the list page
     recordings = Recording.objects.all()
 
-    # Render list page with the recordings and the form
+    # Render list page with the documents and the form
     return render_to_response(
         'v1/list.html',
         {'recordings': recordings, 'form': form},

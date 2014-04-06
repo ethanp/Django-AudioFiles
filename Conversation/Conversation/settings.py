@@ -125,6 +125,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',         # Enable the admin and its documentation
     'django.contrib.admindocs',
+
+    'Conversation.v1',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
