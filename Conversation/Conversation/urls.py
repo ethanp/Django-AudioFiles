@@ -9,12 +9,12 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    (r'^myapp/', include('myproject.myapp.urls')),
-    (r'^$', RedirectView.as_view(url='/myapp/list/')), # Just for ease of use.
 
-    # Enable admin documentation:
+    # Enable admin and its documentation:
+    url(r'^admin/', include(admin.site.urls)),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
-    # Enable the admin:
-    url(r'^admin/', include(admin.site.urls)),
+    # The app itself:
+    (r'^v1/', include('Conversation.v1.urls')),
+    (r'^$', RedirectView.as_view(url='/v1/list/')), # <<== note trailing comma
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

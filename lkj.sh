@@ -5,7 +5,7 @@
 
 case "$1" in
         start )
-            source venv/bin/activate
+            source /Users/Ethan/Dropbox/CSyStuff/Conversation/venv/bin/activate
             ;;
 
         pathit )
