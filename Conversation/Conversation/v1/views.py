@@ -12,8 +12,8 @@ def list(request):
     if request.method == 'POST':
         form = RecordingForm(request.POST, request.FILES)
         if form.is_valid():
-            newdoc = Recording(audiofile = request.FILES['audiofile'])
-            newdoc.save()
+            newrec = Recording(audiofile = request.FILES['audiofile'])
+            newrec.save()
 
             # Redirect to the document list after POST
             return HttpResponseRedirect(reverse('Conversation.v1.views.list'))
