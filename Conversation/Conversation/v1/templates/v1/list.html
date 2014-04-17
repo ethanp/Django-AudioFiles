@@ -6,7 +6,8 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     </head>
     <body>
-        <!-- List of uploaded recordings -->
+        <!-- List of uploaded recordings
+        {# recordings = Recording.objects.all() #}
         {% if recordings %}
             <ul>
             {% for recording in recordings %}
@@ -23,13 +24,27 @@
 
         <!-- Upload form. Note enctype attribute! -->
         <form action="{% url "list" %}" method="post" enctype="multipart/form-data">
+
+            {# In any template that uses a POST form, use the csrf_token tag inside the #}
+            {# <form> element if the form is for an internal URL to protect you from #}
+            {# "Cross Site Request Forgeries" [docs.djangoproject.com/en/dev/ref/contrib/csrf/] #}
             {% csrf_token %}
+
+            {# We passed in a RecordingForm() object #}
+            {# non_field_errors(): errors not associated with a particular field, including ValidationErrors #}
             <p>{{ form.non_field_errors }}</p>
+
+            {# The RecordingForm as a @audiofile[FileField] #}
+            {# It also has a label='string', which will be printed by label_tag #}
+            {# It doesn't (but could) have help_text (in the constructor) #}
             <p>{{ form.audiofile.label_tag }} {{ form.audiofile.help_text }}</p>
             <p>
+                {# I think errors will contain validation errors #}
                 {{ form.audiofile.errors }}
                 {{ form.audiofile }}
             </p>
+            {# I don't think the value="Upload" here is doing anything #}
+            {# Somewhere it must be setting the name="" attribute on this, not sure where #}
             <p><input type="submit" value="Upload" /></p>
         </form>
         <script>
