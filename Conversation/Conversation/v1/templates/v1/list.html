@@ -12,6 +12,7 @@
             <ul>
             {% for recording in recordings %}
                 <li>
+                {# TODO use <audio controls src="mysound.ogg"></audio> #}
                     <a href="{{ recording.audiofile.url }}">
                         {{ recording.audiofile.name }}
                     </a>
@@ -23,6 +24,7 @@
         {% endif %}
 
         <!-- Upload form. Note enctype attribute! -->
+        {# url "list" gives us /v1/list, bc "list" is the @name of that route in v1.urls.py #}
         <form action="{% url "list" %}" method="post" enctype="multipart/form-data">
 
             {# In any template that uses a POST form, use the csrf_token tag inside the #}
