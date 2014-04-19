@@ -24,7 +24,7 @@
     // this is a background task that can be executed asynchronously,
     // I believe there is no other way to do multithreading in Javascript
     // the file doesn't exist though
-    var WORKER_PATH = 'js/recorderjs/recorderWorker.js';
+    var WORKER_PATH = '/static/Audio%20Recorder_files/recorderWorker.js';
 
     // "source" is the "inputPoint", i.e. the GainNode
     // We're not passing in a "cfg"
