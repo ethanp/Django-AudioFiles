@@ -102,7 +102,7 @@
 
         this.getBuffers = function (cb) {
             currCallback = cb || config.callback;
-            worker.postMessage({ command: 'getBuffers' })
+            worker.postMessage({ command: 'getBuffer' })
         };
 
         this.exportWAV = function (cb, type) {
