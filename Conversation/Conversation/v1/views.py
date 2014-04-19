@@ -43,7 +43,8 @@ def list_saved_files(request):
     )
 
 def recorder_screen(request):
-    """
-    show that screen I stole that uses WebRTC to allow you to record audio in the browser
-    """
     return render_to_response('v1/Audio Recorder.html')
+
+def upload(request):
+    print request.POST
+    return HttpResponseRedirect(reverse('Conversation.v1.views.recorder_screen'))

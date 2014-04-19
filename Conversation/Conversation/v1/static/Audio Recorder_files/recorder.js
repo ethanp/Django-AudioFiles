@@ -167,32 +167,27 @@
 
     // TODO if we use this instead of setupDownload, it should post the file to the server
     Recorder.myBlobPoster = function (blob, filename) {
+//        this.post_to_url('/v1/upload/', {a:'b',c:'d'})
+    };
 
-        // stackoverflow.com/questions/133925/javascript-post-request-like-a-form-submit
-        function post_to_url(path, params, method) {
-            method = method || "post"; // Set method to post by default if not specified.
-
-            // The rest of this code assumes you are not using a library.
-            // It can be made less wordy if you use one.
-            var form = document.createElement("form");
-            form.setAttribute("method", method);
-            form.setAttribute("action", path);
-
-            for(var key in params) {
-                if(params.hasOwnProperty(key)) {
-                    var hiddenField = document.createElement("input");
-                    hiddenField.setAttribute("type", "hidden");
-                    hiddenField.setAttribute("name", key);
-                    hiddenField.setAttribute("value", params[key]);
-
-                    form.appendChild(hiddenField);
-                }
+    // TODO this should be moved to main.js or something
+    // stackoverflow.com/questions/133925/javascript-post-request-like-a-form-submit
+    Recorder.post_to_url = function (path, params, method) {
+        method = method || "post"; // Set method to post by default
+        var form = document.createElement("form");
+        form.setAttribute("method", method);
+        form.setAttribute("action", path);
+        for(var key in params) {
+            if(params.hasOwnProperty(key)) {
+                var hiddenField = document.createElement("input");
+                hiddenField.setAttribute("type", "hidden");
+                hiddenField.setAttribute("name", key);
+                hiddenField.setAttribute("value", params[key]);
+                form.appendChild(hiddenField);
             }
-
-            document.body.appendChild(form);
-            form.submit();
         }
-        post_to_url('/asdf/', {a:'b',c:'d'})
+        document.body.appendChild(form);
+        form.submit();
     };
 
     window.Recorder = Recorder;

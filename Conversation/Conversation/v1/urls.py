@@ -7,4 +7,5 @@ urlpatterns = patterns('Conversation.v1.views',
     # of a file to save, it saves it.
     url(r'^list/$', 'list_saved_files', name='list'),
     url(r'^recorder/$', 'recorder_screen', name='recorder'),  # <<== trailing comma
+    url(r'^upload/$', 'upload', name='upload'),
 )
