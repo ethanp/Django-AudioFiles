@@ -1,3 +1,9 @@
+Note
+====
+The main README.md is in the ../ directory ("conversation").
+That is where the **TODOs** live.
+
+
 Keep Note
 ---------
 

@@ -43,7 +43,8 @@ urlpatterns = patterns('',
     # as_view(): Returns a callable view that takes a request and returns a response
     #            e.g. response = MyView.as_view()(request)
     (r'^$', RedirectView.as_view(url='/v1/list/')),  # <<== note trailing comma
-) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)\
+  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 # this last line comes from https://docs.djangoproject.com/en/1.6/howto/static-files/
 # static files include Images, Javascript, and CSS
