@@ -4,4 +4,4 @@
  * 4/18/14
  */
 
-(function(){alert("helloz!");})();
+console.log('helloz');

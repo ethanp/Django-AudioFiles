@@ -41,3 +41,9 @@ def list_saved_files(request):
         {'recordings': recordings, 'form': form},
         context_instance=RequestContext(request)
     )
+
+def recorder_screen(request):
+    """
+    show that screen I stole that uses WebRTC to allow you to record audio in the browser
+    """
+    return render_to_response('v1/Audio Recorder.html')
