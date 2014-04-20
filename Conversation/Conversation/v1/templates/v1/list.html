@@ -47,8 +47,7 @@
                 {{ form.audiofile.errors }}
                 {{ form.audiofile }}
             </p>
-            {# I don't think the value="Upload" here is doing anything #}
-            {# Somewhere it must be setting the name="" attribute on this, not sure where #}
+            {# `value="Upload"` sets the text that goes on the button #}
             <p><input type="submit" value="Upload" /></p>
         </form>
         <a href="{% url 'recorder' %}">Go to the record page</a>

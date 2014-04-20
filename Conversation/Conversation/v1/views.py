@@ -3,7 +3,6 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
-
 from models import Recording
 from forms import RecordingForm
 
@@ -43,8 +42,19 @@ def list_saved_files(request):
     )
 
 def recorder_screen(request):
-    return render_to_response('v1/Audio Recorder.html')
+    if request.method == 'POST':
+        print 'POST', request.POST
+        data = request.POST['something_or_other']
+        print data
 
-def upload(request):
-    print request.POST
-    return HttpResponseRedirect(reverse('Conversation.v1.views.recorder_screen'))
+        # new_recording = form
+        # new_recording.save()
+        return HttpResponseRedirect(reverse('Conversation.v1.views.recorder_screen'))
+    else:
+        form = RecordingForm()
+
+    return render_to_response(
+        'v1/Audio Recorder.html',
+        {'form' : form},
+        context_instance=RequestContext(request)
+    )

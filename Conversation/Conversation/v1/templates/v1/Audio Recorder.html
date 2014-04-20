@@ -78,10 +78,19 @@
 		</div>
 		<div id="controls">
 			<img id="record" src="{% static "Audio Recorder_files/mic128.png" %}" onclick="toggleRecording(this);">
-			<a id="save" href="http://localhost:8000/v1/list/#"> {# TODO how is this supposed to work? #}
+			<a id="save" href="{% url "list" %}">
 				<img src="{% static "Audio Recorder_files/save.svg" %}">
 			</a>
 		</div>
-    <form action='.' method='POST'>{% csrf_token %}</form>
+
+        <form id="recording-file-form" action="{% url "recorder" %}" method="post" enctype="multipart/form-data">
+
+            {# In any template that uses a POST form, use the csrf_token tag inside the #}
+            {# <form> element if the form is for an internal URL to protect you from #}
+            {# "Cross Site Request Forgeries" [docs.djangoproject.com/en/dev/ref/contrib/csrf/] #}
+            {# If it wasn't for this, I would be creating this form in the Javascript #}
+            {% csrf_token %}
+            <p><input type="submit" value="Upload" /></p>
+        </form>
 	</body>
 </html>

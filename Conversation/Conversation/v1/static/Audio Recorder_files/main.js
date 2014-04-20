@@ -39,19 +39,9 @@ var audioInput = null,
     audioRecorder = null;
 
 var rafID = null;
-
 var analyserContext = null;
-
 var canvasWidth, canvasHeight;
-
 var recIndex = 0;
-
-// TODO this never gets called! but this is what I need to call to save the audio...
-function saveAudio() {
-    audioRecorder.exportWAV(doneEncoding);
-    // could get mono instead by saying
-    // audioRecorder.exportMonoWAV( doneEncoding );
-}
 
 function gotBuffers(buffers) {
 
@@ -67,7 +57,7 @@ function gotBuffers(buffers) {
 
 function doneEncoding(blob) {
     // Params: (audio data as "Blob", desired filename)
-    // Enable's HDD button to download audiofile by setting its attributes
+    // Enables HDD button to download audiofile by setting its attributes
     Recorder.setupDownload(blob, "myRecording" + (recIndex < 10 ? "0":"")+recIndex+".wav");
     recIndex++;
 }

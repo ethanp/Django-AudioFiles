@@ -149,44 +149,34 @@
 
         // create a resource locator for the data
         // will be something like: blob:d3958f5c-0777-0845-9dcf-2cb28783acaf
-        var url = (window.URL || window.webkitURL).createObjectURL(blob);
+        var blob_url = (window.URL || window.webkitURL).createObjectURL(blob);
 
         // this is an <a> tag with the HDD image on top
         var link = document.getElementById("save");
 
         // set it to be a link to the data
-        link.href = url;
+        link.href = blob_url;
 
         // * This attribute signifies that the resource it points to should be
         //   downloaded by the browser rather than navigated to.
         // * The value specifies the default filename that the author recommends
         //   for use in labeling the resource in a local file system.
         link.download = filename || 'output.wav';
-        this.myBlobPoster(blob, filename);
-    };
 
-    // TODO if we use this instead of setupDownload, it should post the file to the server
-    Recorder.myBlobPoster = function (blob, filename) {
-//        this.post_to_url('/v1/upload/', {a:'b',c:'d'})
+        this.post_from_form('/v1/upload/', filename, {
+            blob_url : blob_url,
+            type   : 'wav'
+        });
     };
 
     // TODO this should be moved to main.js or something
-    // stackoverflow.com/questions/133925/javascript-post-request-like-a-form-submit
-    Recorder.post_to_url = function (path, params, method) {
-        method = method || "post"; // Set method to post by default
-        var form = document.createElement("form");
-        form.setAttribute("method", method);
-        form.setAttribute("action", path);
-        for(var key in params) {
-            if(params.hasOwnProperty(key)) {
-                var hiddenField = document.createElement("input");
-                hiddenField.setAttribute("type", "hidden");
-                hiddenField.setAttribute("name", key);
-                hiddenField.setAttribute("value", params[key]);
-                form.appendChild(hiddenField);
-            }
-        }
-        document.body.appendChild(form);
+    Recorder.post_from_form = function (path, filename, inputs) {
+        var form = document.getElementById("recording-file-form");
+        var input = document.createElement("input");
+        input.setAttribute("type", "hidden");
+        input.setAttribute("name", "something_or_other");
+        input.setAttribute("value", 'abc');  //JSON.stringify(inputs));
+        form.appendChild(input);
         form.submit();
     };
 

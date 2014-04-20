@@ -117,7 +117,17 @@ function writeString(view, offset, string){
 }
 
 function encodeWAV(samples){
+
+    // ********* ARRAY BUFFER ******* //
+    // The ArrayBuffer is a data type that is used to represent
+    // a generic, fixed-length binary data buffer. You can't directly
+    // manipulate the contents of an ArrayBuffer; instead, you create
+    // an ArrayBufferView object which represents the buffer in a specific
+    // format, and use that to read and write the contents of the buffer.
+    // The constructor takes the desired length in bytes.
     var buffer = new ArrayBuffer(44 + samples.length * 2);
+
+
     var view = new DataView(buffer);
 
     /* RIFF identifier */
