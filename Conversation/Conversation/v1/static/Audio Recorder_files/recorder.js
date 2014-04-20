@@ -16,7 +16,7 @@
  CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  DEALINGS IN THE SOFTWARE.
 
- Modified 4/6/2014 Ethan Petuchowski
+ Extended 4/6/2014 by Ethan Petuchowski
  */
 
 (function (window) {
@@ -56,9 +56,7 @@
         // Initialize the worker by setting its sampleRate attribute
         worker.postMessage({
             command: 'init',
-            config: {
-                sampleRate: this.context.sampleRate
-            }
+            config: { sampleRate: this.context.sampleRate }
         });
         var recording = false,
             currCallback;
@@ -72,7 +70,6 @@
             worker.postMessage({
                 command: 'record',
                 buffer: [
-
                     // Retrieve Float32Array of audio data for channels 0 and 1 (stereo)
                     e.inputBuffer.getChannelData(0),
                     e.inputBuffer.getChannelData(1)
@@ -88,13 +85,8 @@
             }
         };
 
-        this.record = function () {
-            recording = true;
-        };
-
-        this.stop = function () {
-            recording = false;
-        };
+        this.record = function () { recording = true;  };
+        this.stop = function ()   { recording = false; };
 
         this.clear = function () {
             worker.postMessage({ command: 'clear' });
@@ -126,7 +118,6 @@
             });
         };
 
-        //
         worker.onmessage = function (e) {
             var blob = e.data;
             currCallback(blob);
@@ -138,45 +129,26 @@
         this.node.connect(this.context.destination);
     };
 
+    /**  http://www.w3schools.com/js/js_cookies.asp */
+    function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0; i<ca.length; i++)
+        {
+            var c = ca[i].trim();
+            if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+        }
+        return "";
+    }
+
     /**
-     * Set the HDD button in the interface to be "activated" such that
-     * when a user clicks it, their browser prompts them to download
-     * the @blob of data with default @filename. This @blob happens
-     * to be the audio file.
+     * Send the blob of audio data to the server
+     * Not sure how that cookie got there but it sure is handy
      */
-    // TODO something analogous (i.e. another <a> tag) that POSTs the blob to the server with AJAX
-    Recorder.setupDownload = function (blob, filename) {
-
-        // create a resource locator for the data
-        // will be something like: blob:d3958f5c-0777-0845-9dcf-2cb28783acaf
-        var blob_url = (window.URL || window.webkitURL).createObjectURL(blob);
-
-        // this is an <a> tag with the HDD image on top
-        var link = document.getElementById("save");
-
-        // set it to be a link to the data
-        link.href = blob_url;
-
-        // * This attribute signifies that the resource it points to should be
-        //   downloaded by the browser rather than navigated to.
-        // * The value specifies the default filename that the author recommends
-        //   for use in labeling the resource in a local file system.
-        link.download = filename || 'output.wav';
-
-        this.post_from_form('/v1/upload/', filename, {
-            blob     : blob,
-            type     : 'wav'
-        });
-    };
-
-    // TODO this should be moved to main.js or something
-    Recorder.post_from_form = function (path, filename, inputs) {
-        var input_with_csrf = document.getElementById("recording-file-form")[0];
-        var csrf_value = input_with_csrf.getAttribute('value');
+    Recorder.post_from_form = function (path, filename, blob) {
         var formData = new FormData();
-        var blob = new Blob(['Lorem ipsum'], {type: 'plain/text'});
-        formData.append('file', blob, "readme.txt");
-        formData.append('csrfmiddlewaretoken', csrf_value);
+        formData.append('recording', blob, filename);
+        formData.append('csrfmiddlewaretoken', getCookie('csrftoken'));
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "/v1/recorder/");
         xhr.send(formData);

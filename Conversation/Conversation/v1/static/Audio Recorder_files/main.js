@@ -56,9 +56,8 @@ function gotBuffers(buffers) {
 }
 
 function doneEncoding(blob) {
-    // Params: (audio data as "Blob", desired filename)
-    // Enables HDD button to download audiofile by setting its attributes
-    Recorder.setupDownload(blob, "myRecording" + (recIndex < 10 ? "0":"")+recIndex+".wav");
+    var filename = "myRecording" + (recIndex < 10 ? "0":"")+recIndex+".wav";
+    Recorder.post_from_form('/v1/upload/', filename, blob);
     recIndex++;
 }
 

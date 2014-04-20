@@ -42,13 +42,8 @@ def list_saved_files(request):
 
 def recorder_screen(request):
     if request.method == 'POST':
-        print 'FILES', request.FILES
-        file_ = request.FILES['file']
-        print file_
-        print file_.read()
-
-        # new_recording = file_
-        # new_recording.save()
+        newrec = Recording(audiofile=request.FILES['recording'])
+        newrec.save()
         return HttpResponseRedirect(reverse('Conversation.v1.views.recorder_screen'))
     else:
         form = RecordingForm()

@@ -82,15 +82,5 @@
 				<img src="{% static "Audio Recorder_files/save.svg" %}">
 			</a>
 		</div>
-
-        <form id="recording-file-form" action="{% url "recorder" %}" method="post" enctype="multipart/form-data">
-
-            {# In any template that uses a POST form, use the csrf_token tag inside the #}
-            {# <form> element if the form is for an internal URL to protect you from #}
-            {# "Cross Site Request Forgeries" [docs.djangoproject.com/en/dev/ref/contrib/csrf/] #}
-            {# If it wasn't for this, I would be creating this form in the Javascript #}
-            {% csrf_token %}
-            <p><input type="submit" value="Upload" /></p>
-        </form>
 	</body>
 </html>
