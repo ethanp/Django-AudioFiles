@@ -164,20 +164,22 @@
         link.download = filename || 'output.wav';
 
         this.post_from_form('/v1/upload/', filename, {
-            blob_url : blob_url,
-            type   : 'wav'
+            blob     : blob,
+            type     : 'wav'
         });
     };
 
     // TODO this should be moved to main.js or something
     Recorder.post_from_form = function (path, filename, inputs) {
-        var form = document.getElementById("recording-file-form");
-        var input = document.createElement("input");
-        input.setAttribute("type", "hidden");
-        input.setAttribute("name", "something_or_other");
-        input.setAttribute("value", 'abc');  //JSON.stringify(inputs));
-        form.appendChild(input);
-        form.submit();
+        var input_with_csrf = document.getElementById("recording-file-form")[0];
+        var csrf_value = input_with_csrf.getAttribute('value');
+        var formData = new FormData();
+        var blob = new Blob(['Lorem ipsum'], {type: 'plain/text'});
+        formData.append('file', blob, "readme.txt");
+        formData.append('csrfmiddlewaretoken', csrf_value);
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/v1/recorder/");
+        xhr.send(formData);
     };
 
     window.Recorder = Recorder;

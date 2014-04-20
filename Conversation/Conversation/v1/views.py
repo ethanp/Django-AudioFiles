@@ -6,7 +6,6 @@ from django.core.urlresolvers import reverse
 from models import Recording
 from forms import RecordingForm
 
-
 def list_saved_files(request):
     # Handle file upload
     if request.method == 'POST':
@@ -43,11 +42,12 @@ def list_saved_files(request):
 
 def recorder_screen(request):
     if request.method == 'POST':
-        print 'POST', request.POST
-        data = request.POST['something_or_other']
-        print data
+        print 'FILES', request.FILES
+        file_ = request.FILES['file']
+        print file_
+        print file_.read()
 
-        # new_recording = form
+        # new_recording = file_
         # new_recording.save()
         return HttpResponseRedirect(reverse('Conversation.v1.views.recorder_screen'))
     else:
